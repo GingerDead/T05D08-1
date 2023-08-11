@@ -8,30 +8,42 @@ void squaring(int *a, int n);
 int main()
 {
     int n, data[NMAX];
-    input(data, n);
-    squaring(data, n);
-    output(data, n);
+    if (input(data, &n)) {
+        squaring(data, n);
+        output(data, n);
+    } else printf("n/a");
 
     return 0;
 }
 
 int input(int *a, int *n)
 {
-    scanf("%d", n);
-    for(int *p = a; p - a < *n; p++)
-    {
-        scanf("%d", p);
-    }
+    int flag = 1;
+    if ((scanf("%d", n) == 1) && (*n > 0) && (*n <= NMAX + 1) && (getc(stdin) == '\n')) {
+        for (int *p = a; p - a < *n; p++) {
+            if ((scanf("%d", p) != 1) && (getc(stdin) != ('\n' || ' ')))
+                flag = 0;
+        }
+    } else flag = 0;
+
+    return flag;
 }
 
 void output(int *a, int n)
-{
-    //NOTHING
+{   
+    printf("%d", a[0]);
+    for(int *p = a + 1; p - a < n; p++)
+    {
+        printf(" %d", *p);
+    } 
 }
 
 void squaring(int *a, int n)
 {
-    //NOTHING
+    for(int *p = a; p - a < n; p++)
+    {
+        *p *= *p;
+    }
 }
 
 
