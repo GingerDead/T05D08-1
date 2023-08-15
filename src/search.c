@@ -14,7 +14,7 @@
 
 #include <stdio.h>
 #include <math.h>
-#define NMAX 29
+#define NMAX 30
 
 int input(int *data, int *n);
 double mean(int *data, int n);
@@ -22,7 +22,7 @@ double variance(int *data, int n);
 int result(int *data, int n);
 
 int main() {
-    int n, data[NMAX];
+    int n, data[NMAX-1];
     if (input(data, &n)) 
         printf("%d", result(data, n));
     else
@@ -34,11 +34,14 @@ int main() {
 int input(int *data, int *n)
 {
     int flag = 1;
-    if ((scanf("%d", n) == 1) && (*n > 0) && (*n <= NMAX + 1) && (getc(stdin) == '\n')) {
+    if ((scanf("%d", n) == 1) && (*n > 0) && (*n <= NMAX) && (getc(stdin) == '\n')) {
         for (int *p = data; p - data < *n; p++) {
-            if ((scanf("%d", p) != 1) && (getc(stdin) != ('\n' || ' ')))
+            if (scanf("%d", p) != 1) {
                 flag = 0;
+                break;
+            }
         }
+        if (getc(stdin) != '\n') flag = 0;
     } else flag = 0;
 
     return flag;

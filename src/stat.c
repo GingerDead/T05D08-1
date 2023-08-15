@@ -13,7 +13,7 @@ void output_result(int max_v, int min_v, double mean_v, double variance_v);
 
 int main()
 {
-    int n, data[NMAX];
+    int n, data[NMAX-1];
     if (input(data, &n)) {
         output(data, n);
         output_result(max(data, n), min(data, n), mean(data, n), variance(data, n));
@@ -25,11 +25,14 @@ int main()
 int input(int *a, int *n)
 {
     int flag = 1;
-    if ((scanf("%d", n) == 1) && (*n > 0) && (*n <= NMAX + 1) && (getc(stdin) == '\n')) {
+    if ((scanf("%d", n) == 1) && (*n > 0) && (*n <= NMAX) && (getc(stdin) == '\n')) {
         for (int *p = a; p - a < *n; p++) {
-            if ((scanf("%d", p) != 1) && (getc(stdin) != ('\n' || ' ')))
+            if (scanf("%d", p) != 1) {
                 flag = 0;
+                break;
+            }
         }
+        if (getc(stdin) != '\n') flag = 0;
     } else flag = 0;
 
     return flag;
